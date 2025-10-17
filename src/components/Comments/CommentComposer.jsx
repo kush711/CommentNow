@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
+import { TextField, Button, Box } from "@mui/material";
 
 export default function CommentComposer({ onSubmit, placeholder = "Write a comment..." }) {
   const [text, setText] = useState("");
@@ -19,10 +17,11 @@ export default function CommentComposer({ onSubmit, placeholder = "Write a comme
       onSubmit={submit}
       sx={{
         display: "flex",
-        gap: 1,
-        alignItems: "flex-start",
-        flexWrap: "wrap",
+        gap: 0.5,
+        alignItems: "center",
+        flexWrap: "nowrap",
         width: "100%",
+        mt: 0.5,
       }}
     >
       <TextField
@@ -31,13 +30,33 @@ export default function CommentComposer({ onSubmit, placeholder = "Write a comme
         placeholder={placeholder}
         fullWidth
         multiline
-        minRows={2}
+        minRows={1}
+        maxRows={3}
         size="small"
-        sx={{ flex: 1, minWidth: 0 }}
+        sx={{
+          flex: 1,
+          "& .MuiInputBase-root": {
+            fontSize: "0.85rem",
+            paddingY: 0.3,
+          },
+        }}
       />
-      <Button variant="contained" onClick={submit} sx={{ flexShrink: 0 }}>
+
+      <Button
+        variant="contained"
+        size="small"
+        onClick={submit}
+        sx={{
+          flexShrink: 0,
+          textTransform: "none",
+          fontSize: "0.8rem",
+          px: 1.5,
+          py: 0.5,
+        }}
+      >
         Post
       </Button>
     </Box>
   );
 }
+
