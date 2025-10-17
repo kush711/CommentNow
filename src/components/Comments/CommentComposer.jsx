@@ -21,9 +21,8 @@ export default function CommentComposer({ onSubmit, placeholder = "Write a comme
         display: "flex",
         gap: 1,
         alignItems: "flex-start",
-        overflowX: "auto",
-        pb: 1,
-        minWidth: 0,
+        flexWrap: "wrap",
+        width: "100%",
       }}
     >
       <TextField
@@ -34,7 +33,7 @@ export default function CommentComposer({ onSubmit, placeholder = "Write a comme
         multiline
         minRows={2}
         size="small"
-        sx={{ flexShrink: 0, minWidth: 240 }}
+        sx={{ flex: 1, minWidth: 0 }}
       />
       <Button variant="contained" onClick={submit} sx={{ flexShrink: 0 }}>
         Post

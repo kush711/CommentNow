@@ -32,11 +32,11 @@ export default function CommentList({ parentId = null, allComments = [], users =
   };
 
   return (
-    <Box sx={{ overflowX: { xs: "auto", sm: "visible" }, minWidth: { xs: 360, sm: "auto" } }}>
+    <Box sx={{ width: '100%' }}>
       <CommentComposer onSubmit={handleAdd} placeholder="Add a top-level comment..." />
 
       <Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}>
-        <FormControl size="small" sx={{ minWidth: 160 }}>
+        <FormControl size="small" sx={{ minWidth: { xs: 120, sm: 160 } }}>
           <InputLabel>Sort by</InputLabel>
           <Select value={sortType} label="Sort by" onChange={e => setSortType(e.target.value)}>
             <MenuItem value="popular">Most Popular</MenuItem>
@@ -45,10 +45,10 @@ export default function CommentList({ parentId = null, allComments = [], users =
         </FormControl>
       </Box>
 
-      <Stack spacing={2} sx={{ mt: 2, minWidth: 0 }}>
+      <Stack spacing={2} sx={{ mt: 2 }}>
         {sortedComments.length === 0 && <Box sx={{ color: "text.secondary" }}>No comments yet.</Box>}
         {sortedComments.map(comment => (
-          <Box key={comment.id} sx={{ minWidth: 0 }}>
+          <Box key={comment.id}>
             <CommentItem comment={comment} usersById={usersById} allComments={combinedComments} currentUser={currentUser} />
             <Divider sx={{ mt: 1 }} />
           </Box>

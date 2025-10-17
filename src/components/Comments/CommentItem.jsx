@@ -5,7 +5,6 @@ import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
 import ThumbDownAltOutlinedIcon from "@mui/icons-material/ThumbDownAltOutlined";
 import ReplyIcon from "@mui/icons-material/Reply";
 import CommentComposer from "./CommentComposer";
-
 import useCommentActions from "./hooks/useCommentAction.js";
 import { sortCommentsByUpvotes, formatDate } from "./utils/commentHelper.js";
 
@@ -25,12 +24,11 @@ export default function CommentItem({ comment, usersById, allComments, currentUs
   };
 
   return (
-    <Box sx={{ display: "flex", gap: 2, py: 1, width: "100%", minWidth: 0 }}>
-      <Avatar src={user.avatar} alt={user.name} sx={{ width: 35, height: 35, mt: 0.5, flexShrink: 0 }} />
+    <Box sx={{ display: "flex", gap: 2, py: 1, width: "100%", flexWrap: "wrap" }}>
+      <Avatar src={user.avatar} alt={user.name} sx={{ width: 35, height: 35, flexShrink: 0 }} />
 
       <Box sx={{ flex: 1, minWidth: 0 }}>
-        {/* Header */}
-        <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <Stack direction="row" justifyContent="space-between" alignItems="center" flexWrap="wrap">
           <Box sx={{ minWidth: 0 }}>
             <Typography variant="subtitle2" noWrap sx={{ overflow: "hidden", textOverflow: "ellipsis" }}>
               {user.name}
@@ -45,22 +43,12 @@ export default function CommentItem({ comment, usersById, allComments, currentUs
           </IconButton>
         </Stack>
 
-        {/* Comment text */}
         <Typography sx={{ mt: 0.5, mb: 0.5, wordBreak: "break-word" }}>
           {comment.text}
         </Typography>
 
-        {/* Actions */}
-        <Box
-          sx={{
-            display: "flex",
-            gap: 1,
-            overflowX: { xs: "auto", sm: "visible" },
-            py: 0.5,
-            minWidth: 0,
-          }}
-        >
-          <Stack direction="row" spacing={0.5} alignItems="center" sx={{ flexShrink: 0 }}>
+        <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap", py: 0.5 }}>
+          <Stack direction="row" spacing={0.5} alignItems="center">
             <motion.div whileTap={{ scale: 1.2 }}>
               <IconButton onClick={handleLike} color={liked ? "primary" : "default"} size="small" sx={{ p: 0.5 }}>
                 <ThumbUpAltOutlinedIcon fontSize="small" />
@@ -69,7 +57,7 @@ export default function CommentItem({ comment, usersById, allComments, currentUs
             <Typography variant="body2">{upvotes}</Typography>
           </Stack>
 
-          <motion.div whileTap={{ scale: 1.2 }} sx={{ flexShrink: 0 }}>
+          <motion.div whileTap={{ scale: 1.2 }}>
             <IconButton onClick={handleDislike} color={disliked ? "error" : "default"} size="small" sx={{ p: 0.5 }}>
               <ThumbDownAltOutlinedIcon fontSize="small" />
             </IconButton>
@@ -84,10 +72,8 @@ export default function CommentItem({ comment, usersById, allComments, currentUs
           </Button>
         </Box>
 
-        {/* Reply composer */}
         {replying && <Box sx={{ mt: 1 }}><CommentComposer onSubmit={handleReplySubmit} placeholder={`Reply to ${user.name}...`} /></Box>}
 
-        {/* Nested replies */}
         <AnimatePresence>
           {childrenOpen && (
             <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.3 }}>

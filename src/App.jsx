@@ -29,9 +29,8 @@ export default function App() {
 
   return (
     <Container maxWidth="md" sx={{ py: 6 }}>
-      {/* Header */}
       <Paper sx={{ p: 3, mb: 3 }} elevation={3}>
-        <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Box display="flex" justifyContent="space-between" flexDirection={{ xs: 'column', sm: 'row' }} alignItems={{ xs: 'flex-start', sm: 'center' }} gap={1}>
           <Typography variant="h6">Nested Comments — Demo</Typography>
           <Box>
             <Typography variant="body2" component="div">
@@ -44,25 +43,20 @@ export default function App() {
         </Box>
       </Paper>
 
-      {/* Post Card with horizontal scroll if needed */}
-      <Box sx={{ overflowX: { xs: 'auto', sm: 'visible' }, maxWidth: '100%' }}>
+      <Box sx={{ width: '100%', overflowX: { xs: 'auto', sm: 'visible' } }}>
         <PostCard />
       </Box>
 
-      {/* Comments Section */}
-      <Paper sx={{ p: 2, mt: 3, overflowX: { xs: 'auto', sm: 'visible' } }} elevation={1}>
+      <Paper sx={{ p: 2, mt: 3, width: '100%' }} elevation={1}>
         <Typography variant="subtitle1" sx={{ mb: 2 }}>
           Comments
         </Typography>
-
-        <Box sx={{ minWidth: { xs: 420, sm: 'auto' } }}>
-          <CommentList
-            parentId={null}
-            allComments={comments}
-            users={users}
-            currentUser={user}
-          />
-        </Box>
+        <CommentList
+          parentId={null}
+          allComments={comments}
+          users={users}
+          currentUser={user}
+        />
       </Paper>
     </Container>
   );
