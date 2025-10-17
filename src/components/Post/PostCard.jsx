@@ -37,11 +37,10 @@ export default function PostCard({ onLogout }) {
         />
         <CardContent sx={{ flex: 1, minWidth: 0 }}>
           <Typography variant="h6" sx={{ fontSize: '1rem' }}>
-            Designing Nested Comments — UX & Implementation
+            Inter-IIT Tech Meet 14.0 — "Resonating Cascades"
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{ mt: 1, fontSize: '0.85rem' }}>
-            A frontend demo: lazy-load child comments on demand, keep UI tidy with Material UI
-            components, and allow replies and upvotes for each comment.
+            A collaborative platform for IIT students to tackle real-world challenges posed by industry leaders. Teams work intensively on problem statements across various domains, culminating in a showcase of innovative solutions.
           </Typography>
 
           <Box
