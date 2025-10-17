@@ -65,16 +65,14 @@ Follow these steps to set up and run the project locally:
 
 ---
 
-### 4. Start the Development Server
+### Start the Development Server
 
 Launch the app locally in development mode:
 
 ```bash
 npm run dev
 
----
-
-## Future Work
+## 5. Future Work
 
 - Connect frontend to a **backend API** for storing comments, votes, and admin actions.
 - Add **authentication** for users and admins.
