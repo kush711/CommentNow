@@ -6,42 +6,42 @@ import Box from '@mui/material/Box';
 
 export default function PostCard() {
   return (
-    <Card
-      sx={{
-        display: 'flex',
-        flexDirection: { xs: 'column', sm: 'row' }, // stack on mobile
-        gap: 2,
-        p: { xs: 1, sm: 2 },
-        mb: 3,
-        maxWidth: 700,
-        mx: 'auto',
-        boxShadow: 3,
-      }}
-      elevation={2}
-    >
-      <CardMedia
-        component="img"
+    <Box sx={{ overflowX: { xs: 'auto', sm: 'visible' }, mx: { xs: -2, sm: 0 } }}>
+      <Card
         sx={{
-          width: { xs: '100%', sm: 160 }, // full width on mobile
-          height: { xs: 200, sm: 'auto' },
-          borderRadius: 1,
+          display: 'flex',
+          flexDirection: 'row',
+          gap: 2,
+          p: { xs: 1, sm: 2 },
+          mb: 3,
+          maxWidth: 700,
+          minWidth: { xs: 360, sm: 'auto' },
+          mx: 'auto',
+          boxShadow: 3,
         }}
-        image="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=800&q=60"
-        alt="post"
-      />
-      <CardContent sx={{ flex: 1 }}>
-        <Typography variant="h6" sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }}>
-          Designing Nested Comments — UX & Implementation
-        </Typography>
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          sx={{ mt: 1, fontSize: { xs: '0.85rem', sm: '1rem' } }}
-        >
-          A frontend demo: lazy-load child comments on demand, keep UI tidy with Material UI
-          components, and allow replies and upvotes for each comment.
-        </Typography>
-      </CardContent>
-    </Card>
+        elevation={2}
+      >
+        <CardMedia
+          component="img"
+          sx={{
+            width: 160,
+            height: 160,
+            flexShrink: 0,
+            borderRadius: 1,
+          }}
+          image="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=800&q=60"
+          alt="post"
+        />
+        <CardContent sx={{ flex: 1, minWidth: 0 }}>
+          <Typography variant="h6" sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }}>
+            Designing Nested Comments — UX & Implementation
+          </Typography>
+          <Typography variant="body2" color="text.secondary" sx={{ mt: 1, fontSize: { xs: '0.85rem', sm: '1rem' } }}>
+            A frontend demo: lazy-load child comments on demand, keep UI tidy with Material UI
+            components, and allow replies and upvotes for each comment.
+          </Typography>
+        </CardContent>
+      </Card>
+    </Box>
   );
 }
