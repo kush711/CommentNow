@@ -32,3 +32,28 @@ Nested commenting systems are central to many interactive digital platforms, pro
 - includes a about me page.
 
 ---
+
+## Tech Stack
+
+This project uses the following technologies and libraries:
+
+- **Frontend Framework:** React 19 
+- **Build Tool / Bundler:** Vite  
+- **UI Components:** Material-UI (MUI)  
+- **Styling:** Tailwind CSS  
+- **Animations:** Framer Motion  
+- **Icons:** React Icons  
+- **Utilities:** UUID (for unique identifiers), Day.js (for date/time handling)  
+
+---
+
+## Installation
+
+Follow these steps to set up and run the project locally:
+
+1. **Clone the repository**  
+   Use `git` to copy the project to your local machine:
+
+   ```bash
+   git clone https://github.com/kush711/CommentNow
+
