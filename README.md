@@ -57,3 +57,29 @@ Follow these steps to set up and run the project locally:
    ```bash
    git clone https://github.com/kush711/CommentNow
 
+2. **Install dependencies**  
+   Install all required libraries and packages listed in `package.json`:
+
+   ```bash
+   npm install
+
+---
+
+### 4. Start the Development Server
+
+Launch the app locally in development mode:
+
+```bash
+npm run dev
+
+---
+
+## Future Work
+
+- Connect frontend to a **backend API** for storing comments, votes, and admin actions.
+- Add **authentication** for users and admins.
+- Implement **real-time updates** using WebSockets or Firebase.
+- Enable **editing and deleting comments** for regular users.
+- Improve **UI/UX**, mobile responsiveness, and accessibility.
+
+---
