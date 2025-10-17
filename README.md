@@ -1,16 +1,34 @@
-# React + Vite
+# Nested Commenting System (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A **React frontend** implementation of a nested commenting system, designed to visually represent hierarchical comment threads for a single post. This project focuses on **UI and interaction**—allowing users to view comments, replies, and upvotes, as well as collapse and expand threads.  
 
-Currently, two official plugins are available:
+Note: This project currently only implements the frontend. Backend functionality (storing or fetching comments) is not included.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Problem Statement
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Nested commenting systems are central to many interactive digital platforms, providing structured discussions, knowledge exchange, and community engagement. The goal of this project is to create a **fully functional commenting interface** that:
 
-## Expanding the ESLint configuration
+- Displays a single post (image, article, or placeholder text).
+- Shows **top-level comments** directly under the post.
+- Supports **replies to any comment**, forming multiple hierarchical levels.
+- Allows **upvoting** to indicate popularity or relevance.
+- Lets users **collapse or expand comment threads** for better readability.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## Features
+
+- React-based frontend with modular components.
+- Nested comments with unlimited levels of replies.
+- **Upvote and Downvote functionality** for comments.
+- **Sorting** by number of upvotes or newest.
+- **Special admin user** privileges (like deleting comments).
+- Collapse/expand threads for better navigation.
+- Clean and intuitive UI using **Material-UI**.
+- Animations and transitions using **Framer Motion**.
+- UUID-based unique identifiers for comments and replies.
+- includes a about me page.
+
+---
