@@ -47,6 +47,14 @@ This project uses the following technologies and libraries:
 
 ---
 
+## Deployed project
+
+You can check out the live version of the project here:
+
+[**View Deployed App**](https://comment-now.vercel.app/)
+
+---
+
 ## Installation
 
 Follow these steps to set up and run the project locally:
