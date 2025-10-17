@@ -10,10 +10,13 @@ import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 export default function CommentList({ parentId = null, allComments = [], users = [], currentUser }) {
   const usersById = useMemo(() => Object.fromEntries(users.map(u => [u.id, u])), [users]);
   const [sortType, setSortType] = useState("popular");
-  const [localComments, setLocalComments] = useState([]);
+  const [visibleComments, setVisibleComments] = useState(() => (Array.isArray(allComments) ? [...allComments] : []));
 
-  const combinedComments = useMemo(() => [...allComments, ...localComments], [allComments, localComments]);
-  const filteredComments = useMemo(() => combinedComments.filter(c => c.parent_id === parentId), [combinedComments, parentId]);
+  const filteredComments = useMemo(
+    () => visibleComments.filter(c => c.parent_id === parentId),
+    [visibleComments, parentId]
+  );
+
   const sortedComments = useMemo(() => {
     if (sortType === "popular") return sortCommentsByUpvotes(filteredComments);
     return [...filteredComments].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
@@ -21,18 +24,36 @@ export default function CommentList({ parentId = null, allComments = [], users =
 
   const handleAdd = text => {
     const newComment = {
-      id: Math.floor(Math.random() * 1000000),
+      id: Math.random().toString(36).slice(2, 10),
       parent_id: parentId,
       text,
       upvotes: 0,
       created_at: new Date().toISOString(),
       user_id: currentUser.id,
     };
-    setLocalComments(prev => [newComment, ...prev]);
+    setVisibleComments(prev => [newComment, ...prev]);
+  };
+
+  const getAllIdsRecursive = (id, list) => {
+    const ids = [id];
+    const children = list.filter(c => c.parent_id === id);
+    for (const child of children) {
+      ids.push(...getAllIdsRecursive(child.id, list));
+    }
+    return ids;
+  };
+
+  const handleDelete = (id, userId) => {
+    setVisibleComments(prev =>
+      prev.filter(c => {
+        const idsToDelete = getAllIdsRecursive(id, prev);
+        return !(idsToDelete.includes(c.id) && (currentUser.isAdmin || c.user_id === userId));
+      })
+    );
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: "100%" }}>
       <CommentComposer onSubmit={handleAdd} placeholder="Add a top-level comment..." />
 
       <Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}>
@@ -49,7 +70,13 @@ export default function CommentList({ parentId = null, allComments = [], users =
         {sortedComments.length === 0 && <Box sx={{ color: "text.secondary" }}>No comments yet.</Box>}
         {sortedComments.map(comment => (
           <Box key={comment.id}>
-            <CommentItem comment={comment} usersById={usersById} allComments={combinedComments} currentUser={currentUser} />
+            <CommentItem
+              comment={comment}
+              usersById={usersById}
+              allComments={visibleComments} // always pass the updated list
+              currentUser={currentUser}
+              onDeleteComment={handleDelete} // recursive delete
+            />
             <Divider sx={{ mt: 1 }} />
           </Box>
         ))}

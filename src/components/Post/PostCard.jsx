@@ -3,8 +3,9 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 
-export default function PostCard() {
+export default function PostCard({ onLogout }) {
   return (
     <Box sx={{ width: '100%' }}>
       <Card
@@ -37,6 +38,11 @@ export default function PostCard() {
             A frontend demo: lazy-load child comments on demand, keep UI tidy with Material UI
             components, and allow replies and upvotes for each comment.
           </Typography>
+          <Box sx={{ mt: 2 }}>
+            <Button variant="outlined" onClick={onLogout}>
+              Logout / Back to Login
+            </Button>
+          </Box>
         </CardContent>
       </Card>
     </Box>

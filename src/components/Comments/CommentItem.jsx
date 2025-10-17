@@ -4,11 +4,12 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
 import ThumbDownAltOutlinedIcon from "@mui/icons-material/ThumbDownAltOutlined";
 import ReplyIcon from "@mui/icons-material/Reply";
+import DeleteIcon from "@mui/icons-material/Delete";
 import CommentComposer from "./CommentComposer";
 import useCommentActions from "./hooks/useCommentAction.js";
 import { sortCommentsByUpvotes, formatDate } from "./utils/commentHelper.js";
 
-export default function CommentItem({ comment, usersById, allComments, currentUser }) {
+export default function CommentItem({ comment, usersById, allComments, currentUser, onDeleteComment }) {
   const user = usersById[comment.user_id] || { name: "Unknown", avatar: "" };
   const {
     liked, disliked, upvotes, replying, childComments, childrenOpen,
@@ -21,6 +22,12 @@ export default function CommentItem({ comment, usersById, allComments, currentUs
       setChildComments(children);
       setChildrenOpen(true);
     } else setChildrenOpen(false);
+  };
+
+  const handleDelete = () => {
+    if (currentUser.isAdmin || currentUser.id === comment.user_id) {
+      onDeleteComment(comment.id, comment.user_id); // pass user_id to handleDelete
+    }
   };
 
   return (
@@ -38,9 +45,16 @@ export default function CommentItem({ comment, usersById, allComments, currentUs
             </Typography>
           </Box>
 
-          <IconButton size="small" onClick={toggleChildren}>
-            <KeyboardArrowDownIcon fontSize="small" />
-          </IconButton>
+          <Stack direction="row" spacing={1}>
+            {(currentUser.isAdmin || currentUser.id === comment.user_id) && (
+              <IconButton size="small" onClick={handleDelete}>
+                <DeleteIcon fontSize="small" />
+              </IconButton>
+            )}
+            <IconButton size="small" onClick={toggleChildren}>
+              <KeyboardArrowDownIcon fontSize="small" />
+            </IconButton>
+          </Stack>
         </Stack>
 
         <Typography sx={{ mt: 0.5, mb: 0.5, wordBreak: "break-word" }}>
@@ -72,7 +86,11 @@ export default function CommentItem({ comment, usersById, allComments, currentUs
           </Button>
         </Box>
 
-        {replying && <Box sx={{ mt: 1 }}><CommentComposer onSubmit={handleReplySubmit} placeholder={`Reply to ${user.name}...`} /></Box>}
+        {replying && (
+          <Box sx={{ mt: 1 }}>
+            <CommentComposer onSubmit={handleReplySubmit} placeholder={`Reply to ${user.name}...`} />
+          </Box>
+        )}
 
         <AnimatePresence>
           {childrenOpen && (
@@ -81,7 +99,13 @@ export default function CommentItem({ comment, usersById, allComments, currentUs
                 {childComments.length === 0 && <Typography variant="body2" color="text.secondary">No replies yet.</Typography>}
                 {childComments.map(child => (
                   <Box key={child.id} sx={{ mt: 1 }}>
-                    <CommentItem comment={child} usersById={usersById} allComments={allComments} currentUser={currentUser} />
+                    <CommentItem
+                      comment={child}
+                      usersById={usersById}
+                      allComments={allComments} // always pass updated list
+                      currentUser={currentUser}
+                      onDeleteComment={onDeleteComment} // recursive delete works now
+                    />
                   </Box>
                 ))}
               </Box>
