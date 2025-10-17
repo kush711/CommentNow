@@ -44,12 +44,19 @@ export default function CommentList({ parentId = null, allComments = [], users =
   };
 
   const handleDelete = (id, userId) => {
-    setVisibleComments(prev =>
-      prev.filter(c => {
-        const idsToDelete = getAllIdsRecursive(id, prev);
-        return !(idsToDelete.includes(c.id) && (currentUser.isAdmin || c.user_id === userId));
-      })
-    );
+    setVisibleComments(prev => {
+      const idsToDelete = getAllIdsRecursive(id, prev);
+
+      return prev.filter(c => {
+        if (!idsToDelete.includes(c.id)) return true;
+
+        // Admin deletes everything in the subtree
+        if (currentUser?.isAdmin) return false;
+
+        // Non-admin deletes only their own comments
+        return c.user_id !== userId;
+      });
+    });
   };
 
   return (

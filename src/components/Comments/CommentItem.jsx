@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Avatar, Box, Typography, IconButton, Button, Stack } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -26,9 +27,17 @@ export default function CommentItem({ comment, usersById, allComments, currentUs
 
   const handleDelete = () => {
     if (currentUser.isAdmin || currentUser.id === comment.user_id) {
-      onDeleteComment(comment.id, comment.user_id); // pass user_id to handleDelete
+      onDeleteComment(comment.id, comment.user_id);
     }
   };
+
+  // Sync childComments whenever allComments updates while children are open
+  useEffect(() => {
+    if (childrenOpen) {
+      const children = sortCommentsByUpvotes(allComments.filter(c => c.parent_id === comment.id));
+      setChildComments(children);
+    }
+  }, [allComments, childrenOpen, comment.id, setChildComments]);
 
   return (
     <Box sx={{ display: "flex", gap: 2, py: 1, width: "100%", flexWrap: "wrap" }}>
@@ -102,9 +111,9 @@ export default function CommentItem({ comment, usersById, allComments, currentUs
                     <CommentItem
                       comment={child}
                       usersById={usersById}
-                      allComments={allComments} // always pass updated list
+                      allComments={allComments}
                       currentUser={currentUser}
-                      onDeleteComment={onDeleteComment} // recursive delete works now
+                      onDeleteComment={onDeleteComment}
                     />
                   </Box>
                 ))}
